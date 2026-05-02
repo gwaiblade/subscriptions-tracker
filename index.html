@@ -7,7 +7,7 @@
 <meta name="description" content="Personal subscription tracker with cost optimization engine. All data stays in your browser." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
   /* ─────────────  RESET + TOKENS  ───────────── */
@@ -29,7 +29,7 @@
     --danger: #f87171;
     --info: #93c5fd;
     --font-display: 'Instrument Serif', 'Iowan Old Style', Georgia, serif;
-    --font-body: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-body: 'Geist', ui-sans-serif, system-ui, sans-serif;
     --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
     --radius: 6px;
     --radius-lg: 10px;
@@ -58,9 +58,8 @@
     font-family: var(--font-body);
     background: var(--bg);
     color: var(--fg);
-    font-size: 15px;
-    line-height: 1.55;
-    letter-spacing: 0.01em;
+    font-size: 14px;
+    line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     overflow: hidden;
   }
@@ -86,19 +85,19 @@
   }
   .brand-mark {
     font-family: var(--font-display);
-    font-size: 28px;
+    font-size: 26px;
     letter-spacing: -0.5px;
     font-style: italic;
     color: var(--accent);
   }
   .brand-sub {
-    font-size: 11px;
+    font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 2px;
     color: var(--fg-3);
   }
   .nav-section {
-    font-size: 11px;
+    font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 2px;
     color: var(--fg-3);
@@ -109,7 +108,7 @@
     padding: 9px 10px;
     border-radius: var(--radius);
     color: var(--fg-2);
-    font-size: 14px;
+    font-size: 13px;
     transition: all .15s;
     text-align: left; width: 100%;
   }
@@ -123,7 +122,7 @@
   .nav-badge {
     margin-left: auto;
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 10px;
     background: var(--bg-4);
     padding: 2px 6px;
     border-radius: 3px;
@@ -135,7 +134,7 @@
     margin-top: auto;
     padding-top: 16px;
     border-top: 1px solid var(--border);
-    font-size: 12px;
+    font-size: 11px;
     color: var(--fg-3);
     display: flex; flex-direction: column; gap: 8px;
   }
@@ -156,18 +155,49 @@
   .topbar h1 {
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: 26px;
+    font-size: 24px;
     letter-spacing: -0.3px;
   }
-  .topbar .sub { color: var(--fg-3); font-size: 13px; }
+  .topbar .sub { color: var(--fg-3); font-size: 12px; }
   .top-actions { display: flex; gap: 8px; align-items: center; }
+
+  /* View mode toggle (Full vs Out-of-pocket) */
+  .seg {
+    display: inline-flex;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2px;
+    gap: 2px;
+  }
+  .seg button {
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    color: var(--fg-3);
+    transition: all .15s;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+  }
+  .seg button.active {
+    background: var(--bg-4);
+    color: var(--fg);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  }
+  .seg button:hover:not(.active) { color: var(--fg-2); }
+  .seg.hidden { display: none; }
+
+  .badge.subsidy {
+    background: color-mix(in srgb, var(--success) 18%, transparent);
+    color: var(--success);
+  }
 
   .btn {
     padding: 7px 12px;
     border: 1px solid var(--border);
     border-radius: var(--radius);
     background: var(--bg-2);
-    font-size: 13px;
+    font-size: 12px;
     display: inline-flex; align-items: center; gap: 6px;
     transition: all .15s;
     white-space: nowrap;
@@ -209,16 +239,16 @@
     pointer-events: none;
   }
   .hero-label {
-    font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
+    font-size: 10px; text-transform: uppercase; letter-spacing: 2px;
     color: var(--fg-3); margin-bottom: 8px;
   }
   .hero-value {
     font-family: var(--font-display);
-    font-size: 62px; line-height: 1; letter-spacing: -1.5px;
+    font-size: 56px; line-height: 1; letter-spacing: -1.5px;
     font-weight: 400;
   }
   .hero-value .sym { color: var(--fg-3); font-size: 0.55em; vertical-align: 0.15em; margin-right: 4px; }
-  .hero-foot { display: flex; gap: 18px; margin-top: 14px; font-size: 13px; color: var(--fg-2); }
+  .hero-foot { display: flex; gap: 18px; margin-top: 14px; font-size: 12px; color: var(--fg-2); }
   .hero-foot span b { color: var(--fg); font-family: var(--font-mono); font-weight: 500; }
 
   .stat {
@@ -227,9 +257,9 @@
     border-radius: var(--radius-lg);
     padding: 18px;
   }
-  .stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: var(--fg-3); margin-bottom: 6px; }
-  .stat-value { font-family: var(--font-display); font-size: 33px; letter-spacing: -0.5px; }
-  .stat-trend { font-size: 12px; color: var(--fg-2); margin-top: 4px; }
+  .stat-label { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: var(--fg-3); margin-bottom: 6px; }
+  .stat-value { font-family: var(--font-display); font-size: 30px; letter-spacing: -0.5px; }
+  .stat-trend { font-size: 11px; color: var(--fg-2); margin-top: 4px; }
   .stat.savings .stat-value { color: var(--success); }
   .stat.danger .stat-value { color: var(--danger); }
 
@@ -247,7 +277,7 @@
     display: flex; align-items: center; justify-content: space-between;
   }
   .panel-title {
-    font-family: var(--font-display); font-size: 20px; letter-spacing: -0.2px;
+    font-family: var(--font-display); font-size: 18px; letter-spacing: -0.2px;
   }
   .panel-body { padding: 18px; }
   .chart-wrap { height: 260px; position: relative; }
@@ -265,14 +295,14 @@
     width: 32px; height: 32px;
     border-radius: 8px;
     display: grid; place-items: center;
-    font-family: var(--font-display); font-size: 18px;
+    font-family: var(--font-display); font-size: 16px;
     color: #15110c; font-weight: 500;
   }
   .renewal-name { font-weight: 500; }
-  .renewal-meta { font-size: 12px; color: var(--fg-3); }
-  .renewal-date { font-family: var(--font-mono); font-size: 13px; text-align: right; }
+  .renewal-meta { font-size: 11px; color: var(--fg-3); }
+  .renewal-date { font-family: var(--font-mono); font-size: 12px; text-align: right; }
   .renewal-date b { display: block; color: var(--fg); }
-  .renewal-date span { color: var(--fg-3); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+  .renewal-date span { color: var(--fg-3); font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
   .renewal-cost { font-family: var(--font-mono); font-weight: 500; min-width: 80px; text-align: right; }
   .urgent { color: var(--danger); }
   .soon { color: var(--warning); }
@@ -312,7 +342,7 @@
   }
   .subs th {
     text-align: left;
-    font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
+    font-size: 10px; text-transform: uppercase; letter-spacing: 2px;
     color: var(--fg-3); font-weight: 500;
     padding: 12px 14px;
     background: var(--bg-3);
@@ -329,14 +359,14 @@
   .subs tr:last-child td { border-bottom: none; }
   .subs tr:hover td { background: color-mix(in srgb, var(--bg-3) 50%, transparent); }
   .sub-name { display: flex; align-items: center; gap: 10px; }
-  .sub-name .logo { width: 26px; height: 26px; border-radius: 6px; font-size: 14px; display: grid; place-items: center; color: #15110c; font-family: var(--font-display); font-weight: 500; }
+  .sub-name .logo { width: 26px; height: 26px; border-radius: 6px; font-size: 13px; display: grid; place-items: center; color: #15110c; font-family: var(--font-display); font-weight: 500; }
   .sub-name b { font-weight: 500; }
-  .sub-name small { display: block; color: var(--fg-3); font-size: 12px; }
+  .sub-name small { display: block; color: var(--fg-3); font-size: 11px; }
   .badge {
     display: inline-block;
     padding: 2px 8px;
     border-radius: 999px;
-    font-size: 11px;
+    font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 1px;
     background: var(--bg-4);
@@ -344,7 +374,7 @@
   }
   .badge.biz { background: color-mix(in srgb, var(--info) 20%, transparent); color: var(--info); }
   .stars { display: inline-flex; gap: 2px; cursor: pointer; }
-  .stars span { color: var(--fg-3); font-size: 15px; line-height: 1; }
+  .stars span { color: var(--fg-3); font-size: 14px; line-height: 1; }
   .stars span.on { color: var(--accent); }
   .stars:hover span { color: var(--fg-3); }
   .stars:hover span.hover { color: var(--accent-2); }
@@ -365,7 +395,7 @@
     color: var(--fg-3);
   }
   .empty h3 {
-    font-family: var(--font-display); font-size: 28px; font-weight: 400;
+    font-family: var(--font-display); font-size: 26px; font-weight: 400;
     color: var(--fg); margin-bottom: 6px;
   }
   .empty p { margin-bottom: 18px; }
@@ -384,19 +414,19 @@
   }
   .optimize-hero h2 {
     font-family: var(--font-display);
-    font-size: 33px;
+    font-size: 30px;
     font-weight: 400;
     letter-spacing: -0.5px;
     margin-bottom: 6px;
   }
   .optimize-hero .big {
     font-family: var(--font-display);
-    font-size: 70px; letter-spacing: -1.5px;
+    font-size: 64px; letter-spacing: -1.5px;
     color: var(--success);
     line-height: 1;
   }
   .optimize-hero .sublabel {
-    font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
+    font-size: 10px; text-transform: uppercase; letter-spacing: 2px;
     color: var(--fg-3); text-align: right; margin-bottom: 4px;
   }
   .insights { display: flex; flex-direction: column; gap: 10px; }
@@ -415,12 +445,12 @@
     width: 36px; height: 36px; border-radius: 8px;
     display: grid; place-items: center;
     background: var(--bg-3);
-    font-size: 20px;
+    font-size: 18px;
   }
   .insight h4 {
-    font-size: 14px; font-weight: 500; margin-bottom: 2px;
+    font-size: 13px; font-weight: 500; margin-bottom: 2px;
   }
-  .insight p { font-size: 13px; color: var(--fg-2); }
+  .insight p { font-size: 12px; color: var(--fg-2); }
   .insight-save {
     text-align: right;
     font-family: var(--font-mono);
@@ -430,11 +460,11 @@
   }
   .insight.warn .insight-save b { color: var(--warning); }
   .insight.danger .insight-save b { color: var(--danger); }
-  .insight-save span { font-size: 11px; color: var(--fg-3); text-transform: uppercase; letter-spacing: 1px; }
+  .insight-save span { font-size: 10px; color: var(--fg-3); text-transform: uppercase; letter-spacing: 1px; }
 
   /* ─────────────  CALENDAR  ───────────── */
   .cal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
-  .cal-head h3 { font-family: var(--font-display); font-size: 24px; font-weight: 400; }
+  .cal-head h3 { font-family: var(--font-display); font-size: 22px; font-weight: 400; }
   .cal-nav { display: flex; gap: 4px; }
   .cal-grid {
     display: grid; grid-template-columns: repeat(7, 1fr);
@@ -444,7 +474,7 @@
     overflow: hidden;
   }
   .cal-dow {
-    font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
+    font-size: 10px; text-transform: uppercase; letter-spacing: 2px;
     color: var(--fg-3);
     padding: 10px;
     background: var(--bg-3);
@@ -466,10 +496,10 @@
     display: inline-grid; place-items: center;
     font-weight: 500;
   }
-  .cal-date { font-size: 12px; color: var(--fg-2); font-family: var(--font-mono); }
+  .cal-date { font-size: 11px; color: var(--fg-2); font-family: var(--font-mono); }
   .cal-events { margin-top: 4px; display: flex; flex-direction: column; gap: 2px; }
   .cal-event {
-    font-size: 11px;
+    font-size: 10px;
     padding: 2px 5px;
     border-radius: 3px;
     background: var(--bg-4);
@@ -485,15 +515,15 @@
     border-radius: var(--radius-lg);
     padding: 20px;
   }
-  .setting-group h3 { font-family: var(--font-display); font-size: 20px; margin-bottom: 14px; font-weight: 400; }
+  .setting-group h3 { font-family: var(--font-display); font-size: 18px; margin-bottom: 14px; font-weight: 400; }
   .setting-row {
     display: flex; justify-content: space-between; align-items: center;
     padding: 10px 0;
     border-bottom: 1px solid var(--border);
   }
   .setting-row:last-child { border-bottom: none; }
-  .setting-row label { font-size: 14px; }
-  .setting-row small { display: block; color: var(--fg-3); font-size: 12px; margin-top: 2px; }
+  .setting-row label { font-size: 13px; }
+  .setting-row small { display: block; color: var(--fg-3); font-size: 11px; margin-top: 2px; }
 
   /* ─────────────  MODAL  ───────────── */
   .modal-bg {
@@ -520,11 +550,11 @@
     border-bottom: 1px solid var(--border);
     display: flex; justify-content: space-between; align-items: center;
   }
-  .modal-head h2 { font-family: var(--font-display); font-size: 24px; font-weight: 400; }
+  .modal-head h2 { font-family: var(--font-display); font-size: 22px; font-weight: 400; }
   .modal-body { padding: 22px; display: flex; flex-direction: column; gap: 16px; }
   .field label {
     display: block;
-    font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
+    font-size: 10px; text-transform: uppercase; letter-spacing: 2px;
     color: var(--fg-3); margin-bottom: 6px;
   }
   .field input, .field select, .field textarea {
@@ -576,7 +606,7 @@
     display: flex; gap: 8px; justify-content: flex-end;
   }
   .stars-big span {
-    font-size: 22px;
+    font-size: 20px;
     cursor: pointer;
     color: var(--fg-3);
     margin-right: 3px;
@@ -592,7 +622,7 @@
     border-left: 3px solid var(--success);
     border-radius: var(--radius);
     padding: 12px 18px;
-    font-size: 14px;
+    font-size: 13px;
     box-shadow: var(--shadow);
     z-index: 200;
     transform: translateY(100px);
@@ -668,6 +698,10 @@
         <div class="sub" id="viewSub">Your subscription footprint at a glance.</div>
       </div>
       <div class="top-actions">
+        <div class="seg hidden" id="viewModeToggle" title="Toggle between full subscription cost and your out-of-pocket cost after work subsidies">
+          <button data-mode="full" class="active">Full</button>
+          <button data-mode="oop">Out-of-pocket</button>
+        </div>
         <button class="btn ghost" id="btnTheme" title="Toggle theme">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
         </button>
@@ -717,7 +751,7 @@
           <div class="panel">
             <div class="panel-head">
               <span class="panel-title">By category</span>
-              <span style="font-size: 12px; color: var(--fg-3);">Monthly</span>
+              <span style="font-size:11px; color: var(--fg-3);">Monthly</span>
             </div>
             <div class="panel-body">
               <div class="chart-wrap"><canvas id="chartCategory"></canvas></div>
@@ -726,7 +760,7 @@
           <div class="panel">
             <div class="panel-head">
               <span class="panel-title">Upcoming renewals</span>
-              <span style="font-size: 12px; color: var(--fg-3);">Next 30 days</span>
+              <span style="font-size:11px; color: var(--fg-3);">Next 30 days</span>
             </div>
             <div class="renewal-list" id="renewalList"></div>
           </div>
@@ -735,7 +769,7 @@
         <div class="panel">
           <div class="panel-head">
             <span class="panel-title">All subscriptions</span>
-            <span style="font-size: 12px; color: var(--fg-3);" id="dashSubSummary">&nbsp;</span>
+            <span style="font-size:11px; color: var(--fg-3);" id="dashSubSummary">&nbsp;</span>
           </div>
           <div class="panel-body">
             <div class="chart-wrap" style="height: 220px;"><canvas id="chartBreakdown"></canvas></div>
@@ -770,11 +804,11 @@
           <div>
             <h2>Potential annual savings</h2>
             <div class="big mono" id="optSavingsBig">$0</div>
-            <div style="color: var(--fg-2); margin-top: 8px; font-size: 14px;" id="optSavingsNote">Add subscriptions to see optimization opportunities.</div>
+            <div style="color: var(--fg-2); margin-top: 8px; font-size: 13px;" id="optSavingsNote">Add subscriptions to see optimization opportunities.</div>
           </div>
           <div>
             <div class="sublabel">From</div>
-            <div class="mono" style="font-size: 15px; color: var(--fg-2); text-align: right;"><span id="optInsightCount">0</span> insights</div>
+            <div class="mono" style="font-size: 14px; color: var(--fg-2); text-align: right;"><span id="optInsightCount">0</span> insights</div>
           </div>
         </div>
         <div class="insights" id="insightsList"></div>
@@ -869,9 +903,9 @@
 
           <div class="setting-group" style="grid-column: 1 / -1;">
             <h3>About</h3>
-            <p style="font-size: 14px; color: var(--fg-2); line-height: 1.6;">
-              Ledger is a zero-backend personal subscription tracker. All data lives in your browser's <code class="mono" style="background: var(--bg-3); padding: 1px 6px; border-radius: 3px; font-size: 13px;">localStorage</code>.
-              FX rates pulled from Frankfurter (ECB, no key). Deploy free on GitHub Pages — commit this file as <code class="mono" style="background: var(--bg-3); padding: 1px 6px; border-radius: 3px; font-size: 13px;">index.html</code> in a repo with Pages enabled.
+            <p style="font-size: 13px; color: var(--fg-2); line-height: 1.6;">
+              Ledger is a zero-backend personal subscription tracker. All data lives in your browser's <code class="mono" style="background: var(--bg-3); padding: 1px 6px; border-radius: 3px; font-size: 12px;">localStorage</code>.
+              FX rates pulled from Frankfurter (ECB, no key). Deploy free on GitHub Pages — commit this file as <code class="mono" style="background: var(--bg-3); padding: 1px 6px; border-radius: 3px; font-size: 12px;">index.html</code> in a repo with Pages enabled.
             </p>
           </div>
         </div>
@@ -942,7 +976,7 @@
         </div>
       </div>
       <div class="field">
-        <label>Usage rating <small style="color: var(--fg-3); text-transform: none; letter-spacing: 0; font-size: 12px;">— how much value are you getting?</small></label>
+        <label>Usage rating <small style="color: var(--fg-3); text-transform: none; letter-spacing: 0; font-size: 11px;">— how much value are you getting?</small></label>
         <div class="stars-big" id="fStars" data-value="3">
           <span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span>
         </div>
@@ -954,12 +988,21 @@
       <div class="field toggle-row">
         <div>
           <label style="margin-bottom: 2px;">Business / tax deductible</label>
-          <small style="color: var(--fg-3); font-size: 12px;">Flag for Cranberry AI / work subs</small>
+          <small style="color: var(--fg-3); font-size: 11px;">Flag for Cranberry AI / work subs</small>
         </div>
         <div class="toggle" id="fBusiness"></div>
       </div>
       <div class="field">
-        <label>Cancellation URL <small style="color: var(--fg-3); text-transform: none; letter-spacing: 0; font-size: 12px;">(optional)</small></label>
+        <label>Work subsidy <small style="color: var(--fg-3); text-transform: none; letter-spacing: 0; font-size: 11px;">— what % does your employer cover?</small></label>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <input type="range" id="fSubsidyRange" min="0" max="100" step="5" value="0" style="flex: 1; accent-color: var(--accent);" />
+          <input type="number" id="fSubsidy" min="0" max="100" step="1" value="0" style="width: 70px; text-align: right;" />
+          <span class="mono" style="color: var(--fg-3); font-size: 12px;">%</span>
+        </div>
+        <small style="color: var(--fg-3); display: block; margin-top: 6px;">Use the topbar toggle to switch between full and out-of-pocket totals.</small>
+      </div>
+      <div class="field">
+        <label>Cancellation URL <small style="color: var(--fg-3); text-transform: none; letter-spacing: 0; font-size: 11px;">(optional)</small></label>
         <input type="url" id="fCancelUrl" placeholder="https://…" />
       </div>
       <div class="field">
@@ -990,8 +1033,9 @@ const FX_KEY = 'ledger:fx:v1';
 let state = {
   subs: [],
   settings: {
-    currency: 'SGD',
-    theme: 'dark'
+    currency: 'USD',
+    theme: 'dark',
+    viewMode: 'full'   // 'full' = pre-subsidy; 'oop' = out-of-pocket
   },
   fx: { base: 'USD', rates: { USD: 1 }, fetched: 0 },
   editId: null,
@@ -1047,16 +1091,27 @@ function convert(amount, fromCurrency, toCurrency = state.settings.currency) {
   return usd * rates[toCurrency];
 }
 
-function monthlyCost(sub) {
+function monthlyCost(sub, opts = {}) {
   const converted = convert(sub.cost, sub.currency);
+  let monthly;
   switch (sub.cycle) {
-    case 'yearly':    return converted / 12;
-    case 'quarterly': return converted / 3;
-    case 'weekly':    return converted * 52 / 12;
-    default:          return converted;
+    case 'yearly':    monthly = converted / 12; break;
+    case 'quarterly': monthly = converted / 3; break;
+    case 'weekly':    monthly = converted * 52 / 12; break;
+    default:          monthly = converted;
   }
+  // Subsidy: explicit override wins; otherwise follow the global view toggle.
+  // Optimize engine always passes {applySubsidy: true} since "your savings" = out-of-pocket.
+  const applySubsidy = opts.applySubsidy !== undefined
+    ? opts.applySubsidy
+    : (state.settings.viewMode === 'oop');
+  const pct = sub.subsidyPercent || 0;
+  if (applySubsidy && pct > 0) {
+    monthly = monthly * (1 - pct / 100);
+  }
+  return monthly;
 }
-function yearlyCost(sub) { return monthlyCost(sub) * 12; }
+function yearlyCost(sub, opts) { return monthlyCost(sub, opts) * 12; }
 
 function daysBetween(a, b) {
   const MS = 24 * 60 * 60 * 1000;
@@ -1145,6 +1200,7 @@ function renderAll() {
   renderOptimize();
   renderCalendar();
   renderNavCounts();
+  updateViewModeUI();
 }
 
 function renderNavCounts() {
@@ -1198,7 +1254,7 @@ function renderDashboard() {
   // Renewal list
   const rlist = $('#renewalList');
   if (!upcoming.length) {
-    rlist.innerHTML = '<div style="padding: 30px 18px; color: var(--fg-3); text-align: center; font-size: 14px;">No renewals in the next 30 days.</div>';
+    rlist.innerHTML = '<div style="padding: 30px 18px; color: var(--fg-3); text-align: center; font-size: 13px;">No renewals in the next 30 days.</div>';
   } else {
     rlist.innerHTML = upcoming.slice(0, 6).map(item => {
       const days = daysBetween(item.date, new Date());
@@ -1245,7 +1301,7 @@ function renderCategoryChart() {
 
   if (chartCat) chartCat.destroy();
   if (!labels.length) {
-    ctx.parentElement.innerHTML = '<div style="color: var(--fg-3); text-align: center; padding: 80px 20px; font-size: 14px;">No data yet.</div>';
+    ctx.parentElement.innerHTML = '<div style="color: var(--fg-3); text-align: center; padding: 80px 20px; font-size: 13px;">No data yet.</div>';
     return;
   }
   chartCat = new Chart(ctx, {
@@ -1254,7 +1310,7 @@ function renderCategoryChart() {
     options: {
       responsive: true, maintainAspectRatio: false,
       plugins: {
-        legend: { position: 'right', labels: { color: txt, font: { family: 'Geist', size: 13 }, padding: 12, boxWidth: 10, boxHeight: 10, usePointStyle: true } },
+        legend: { position: 'right', labels: { color: txt, font: { family: 'Geist', size: 12 }, padding: 12, boxWidth: 10, boxHeight: 10, usePointStyle: true } },
         tooltip: { callbacks: { label: c => `${c.label}: ${formatMoney(c.parsed)}/mo` } }
       },
       cutout: '62%'
@@ -1268,7 +1324,7 @@ function renderBreakdownChart() {
   const sorted = [...state.subs].sort((a,b) => monthlyCost(b) - monthlyCost(a)).slice(0, 15);
   if (chartBreakdown) chartBreakdown.destroy();
   if (!sorted.length) {
-    ctx.parentElement.innerHTML = '<div style="color: var(--fg-3); text-align: center; padding: 70px 20px; font-size: 14px;">Add subscriptions to see the breakdown.</div>';
+    ctx.parentElement.innerHTML = '<div style="color: var(--fg-3); text-align: center; padding: 70px 20px; font-size: 13px;">Add subscriptions to see the breakdown.</div>';
     $('#dashSubSummary').textContent = '';
     return;
   }
@@ -1296,7 +1352,7 @@ function renderBreakdownChart() {
       },
       scales: {
         x: { grid: { color: grid }, ticks: { color: txt, font: { family: 'JetBrains Mono' }, callback: v => formatMoney(v, state.settings.currency, { noDecimals: true }) } },
-        y: { grid: { display: false }, ticks: { color: txt, font: { family: 'Geist', size: 13 } } }
+        y: { grid: { display: false }, ticks: { color: txt, font: { family: 'Geist', size: 12 } } }
       }
     }
   });
@@ -1367,11 +1423,16 @@ function renderSubsTable() {
       <tbody>
       ${subs.map(s => {
         const mo = monthlyCost(s);
+        const moFull = monthlyCost(s, { applySubsidy: false });
         const date = nextRenewalDate(s);
         const dateStr = date ? date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: '2-digit' }) : '—';
         const days = date ? daysBetween(date, new Date()) : null;
         const dayClass = days !== null && days <= 3 ? 'urgent' : days !== null && days <= 7 ? 'soon' : '';
-        const origLabel = s.currency !== state.settings.currency ? `<small>${formatMoney(s.cost, s.currency)} ${s.cycle}</small>` : `<small>${formatMoney(s.cost, s.currency)} ${s.cycle}</small>`;
+        const pct = s.subsidyPercent || 0;
+        const showingOOP = state.settings.viewMode === 'oop' && pct > 0;
+        const costSubtitle = showingOOP
+          ? `<small>Full ${formatMoney(moFull)} · ${pct}% subsidized</small>`
+          : `<small>${formatMoney(s.cost, s.currency)} ${s.cycle}</small>`;
         return `
           <tr>
             <td>
@@ -1379,13 +1440,13 @@ function renderSubsTable() {
                 <div class="logo" style="background: ${s.color}">${logoChar(s.name)}</div>
                 <div>
                   <b>${escapeHtml(s.name)}</b>
-                  ${origLabel}
+                  ${costSubtitle}
                 </div>
               </div>
             </td>
             <td class="mono">${formatMoney(mo)}</td>
             <td><span class="badge">${s.cycle}</span></td>
-            <td>${s.category}${s.business ? ' <span class="badge biz">Biz</span>' : ''}</td>
+            <td>${s.category}${s.business ? ' <span class="badge biz">Biz</span>' : ''}${pct > 0 ? ` <span class="badge subsidy" title="${pct}% covered by employer">${pct}% sub</span>` : ''}</td>
             <td>${renderStars(s.usage || 0)}</td>
             <td class="mono ${dayClass}">${dateStr}</td>
             <td>
@@ -1422,7 +1483,7 @@ function renderSubsTable() {
 
 function renderStars(v) {
   let html = '<span class="mono" style="font-family: inherit; display: inline-flex; gap: 1px;">';
-  for (let i = 1; i <= 5; i++) html += `<span style="color: ${i <= v ? 'var(--accent)' : 'var(--fg-3)'}; font-size: 14px;">★</span>`;
+  for (let i = 1; i <= 5; i++) html += `<span style="color: ${i <= v ? 'var(--accent)' : 'var(--fg-3)'}; font-size: 13px;">★</span>`;
   html += '</span>';
   return html;
 }
@@ -1437,12 +1498,16 @@ function populateCategoryFilter() {
 /* OPTIMIZE ─────────────────── */
 function computeInsights() {
   const insights = [];
-  const subs = state.subs;
-  if (!subs.length) return insights;
+  // Optimize ALWAYS uses out-of-pocket cost since "your savings" only counts what
+  // comes out of your wallet. Fully (100%) subsidized subs are skipped — cancelling
+  // them doesn't save you anything personally.
+  const OOP = { applySubsidy: true };
+  const relevant = state.subs.filter(s => (s.subsidyPercent || 0) < 100);
+  if (!relevant.length) return insights;
 
   // 1. Annual switch savings — rough 15% assumption on monthly-billed items
-  subs.filter(s => s.cycle === 'monthly').forEach(s => {
-    const annualSave = monthlyCost(s) * 12 * 0.15;
+  relevant.filter(s => s.cycle === 'monthly').forEach(s => {
+    const annualSave = monthlyCost(s, OOP) * 12 * 0.15;
     if (annualSave >= 5) {
       insights.push({
         type: 'annual',
@@ -1456,45 +1521,49 @@ function computeInsights() {
     }
   });
 
-  // 2. Duplicate category detection (entertainment-ish categories only)
+  // 2. Duplicate category detection (only categories where overlap is wasteful)
   const dupCats = ['Music', 'Entertainment', 'Cloud / Hosting', 'News / Media', 'AI / Dev Tools'];
   dupCats.forEach(cat => {
-    const group = subs.filter(s => s.category === cat);
+    const group = relevant.filter(s => s.category === cat);
     if (group.length >= 2) {
-      const cheapest = [...group].sort((a, b) => monthlyCost(a) - monthlyCost(b))[0];
-      const save = group.filter(g => g.id !== cheapest.id).reduce((s, g) => s + monthlyCost(g), 0) * 12;
-      insights.push({
-        type: 'duplicate',
-        icon: '🔁',
-        severity: 'warn',
-        title: `${group.length} services in "${cat}"`,
-        body: `${group.map(g => g.name).join(', ')}. Consider consolidating — keeping only ${cheapest.name} saves the most.`,
-        save
-      });
+      const cheapest = [...group].sort((a, b) => monthlyCost(a, OOP) - monthlyCost(b, OOP))[0];
+      const save = group.filter(g => g.id !== cheapest.id).reduce((s, g) => s + monthlyCost(g, OOP), 0) * 12;
+      if (save > 0) {
+        insights.push({
+          type: 'duplicate',
+          icon: '🔁',
+          severity: 'warn',
+          title: `${group.length} services in "${cat}"`,
+          body: `${group.map(g => g.name).join(', ')}. Consider consolidating — keeping only ${cheapest.name} saves the most.`,
+          save
+        });
+      }
     }
   });
 
   // 3. Low usage flag
-  subs.filter(s => s.usage && s.usage <= 2).forEach(s => {
+  relevant.filter(s => s.usage && s.usage <= 2).forEach(s => {
+    const save = yearlyCost(s, OOP);
+    if (save <= 0) return;
     insights.push({
       type: 'lowuse',
       icon: '⚠️',
       severity: 'danger',
       sub: s,
       title: `Low usage: ${s.name}`,
-      body: `You rated this ${s.usage}/5. Cancelling frees up ${formatMoney(yearlyCost(s))} a year.`,
-      save: yearlyCost(s)
+      body: `You rated this ${s.usage}/5. Cancelling frees up ${formatMoney(save)} a year.`,
+      save
     });
   });
 
   // 4. Family plan opportunities
-  subs.forEach(s => {
+  relevant.forEach(s => {
     const key = s.name.toLowerCase().trim();
     const fp = Object.keys(FAMILY_PLANS).find(k => key.includes(k) || k.includes(key));
     if (fp) {
       const info = FAMILY_PLANS[fp];
-      const currentMonthly = monthlyCost(s);
-      const familyMonthly = info.familyPrice; // USD
+      const currentMonthly = monthlyCost(s, OOP);
+      const familyMonthly = info.familyPrice;
       const split3 = familyMonthly / 3;
       const savePerMo = currentMonthly - split3;
       if (savePerMo > 0) {
@@ -1512,26 +1581,28 @@ function computeInsights() {
   });
 
   // 5. Free alternative suggestions
-  subs.forEach(s => {
+  relevant.forEach(s => {
     const key = s.name.toLowerCase().trim();
     const alt = Object.keys(FREE_ALTERNATIVES).find(k => key.includes(k) || k.includes(key));
     if (alt) {
+      const save = yearlyCost(s, OOP);
+      if (save <= 0) return;
       insights.push({
         type: 'alternative',
         icon: '🆓',
         severity: 'info',
         sub: s,
         title: `Free alternative to ${s.name}`,
-        body: `Try: ${FREE_ALTERNATIVES[alt]}. Save ${formatMoney(yearlyCost(s))}/yr if it fits your needs.`,
-        save: yearlyCost(s)
+        body: `Try: ${FREE_ALTERNATIVES[alt]}. Save ${formatMoney(save)}/yr if it fits your needs.`,
+        save
       });
     }
   });
 
   // 6. Small subscription creep
-  const smalls = subs.filter(s => monthlyCost(s) < 10 && monthlyCost(s) > 0);
+  const smalls = relevant.filter(s => monthlyCost(s, OOP) < 10 && monthlyCost(s, OOP) > 0);
   if (smalls.length >= 4) {
-    const total = smalls.reduce((sum, s) => sum + yearlyCost(s), 0);
+    const total = smalls.reduce((sum, s) => sum + yearlyCost(s, OOP), 0);
     insights.push({
       type: 'creep',
       icon: '🪙',
@@ -1543,9 +1614,9 @@ function computeInsights() {
   }
 
   // 7. Business/personal mix flag
-  const hasBusiness = subs.some(s => s.business);
-  const hasPersonal = subs.some(s => !s.business);
-  if (hasBusiness && hasPersonal && !subs.some(s => s.notes && s.notes.toLowerCase().includes('separate card'))) {
+  const hasBusiness = state.subs.some(s => s.business);
+  const hasPersonal = state.subs.some(s => !s.business);
+  if (hasBusiness && hasPersonal && !state.subs.some(s => s.notes && s.notes.toLowerCase().includes('separate card'))) {
     insights.push({
       type: 'taxing',
       icon: '🧾',
@@ -1684,6 +1755,9 @@ function openModal(sub) {
   $('#fNotes').value = sub?.notes || '';
   setStars(sub?.usage || 3);
   $('#fBusiness').classList.toggle('on', !!sub?.business);
+  const subsidyVal = sub?.subsidyPercent || 0;
+  $('#fSubsidy').value = subsidyVal;
+  $('#fSubsidyRange').value = subsidyVal;
   renderColorPicker(sub?.color);
   $('#modalBg').classList.add('show');
   setTimeout(() => $('#fName').focus(), 80);
@@ -1711,6 +1785,7 @@ function saveModal() {
     nextRenewal: $('#fRenewal').value || null,
     usage: parseInt($('#fStars').dataset.value || '3'),
     business: $('#fBusiness').classList.contains('on'),
+    subsidyPercent: Math.max(0, Math.min(100, parseFloat($('#fSubsidy').value) || 0)),
     cancelUrl: $('#fCancelUrl').value.trim(),
     notes: $('#fNotes').value.trim(),
     color: $('#fColorPicker .selected')?.dataset.color || PALETTE[0]
@@ -1776,6 +1851,8 @@ function setView(v) {
   };
   $('#viewTitle').textContent = titles[v][0];
   $('#viewSub').textContent = titles[v][1];
+  $('#viewSub').dataset.base = titles[v][1];
+  updateViewModeUI();
   if (v === 'calendar') renderCalendar();
   if (v === 'dashboard') renderDashboard();
   if (v === 'optimize') renderOptimize();
@@ -1807,10 +1884,13 @@ function exportJSON() {
   toast('Exported.');
 }
 function exportCSV() {
-  const header = ['name','cost','currency','cycle','category','monthly_equivalent','nextRenewal','usage','business','cancelUrl','notes'];
+  const header = ['name','cost','currency','cycle','category','monthly_full','subsidy_percent','monthly_out_of_pocket','nextRenewal','usage','business','cancelUrl','notes'];
   const rows = state.subs.map(s => [
     s.name, s.cost, s.currency, s.cycle, s.category,
-    monthlyCost(s).toFixed(2), s.nextRenewal || '', s.usage || '',
+    monthlyCost(s, { applySubsidy: false }).toFixed(2),
+    s.subsidyPercent || 0,
+    monthlyCost(s, { applySubsidy: true }).toFixed(2),
+    s.nextRenewal || '', s.usage || '',
     s.business ? 'yes' : 'no', s.cancelUrl || '', (s.notes || '').replace(/\n/g, ' ')
   ]);
   const csv = [header, ...rows].map(r => r.map(c => {
@@ -1850,19 +1930,19 @@ function loadSeed() {
   const today = new Date();
   const futureDate = n => { const d = new Date(today); d.setDate(d.getDate() + n); return d.toISOString().slice(0,10); };
   state.subs = [
-    { id: uuid(), name: 'Claude Pro', cost: 20, currency: 'USD', cycle: 'monthly', category: 'AI / Dev Tools', nextRenewal: futureDate(3), usage: 5, business: true, cancelUrl: 'https://claude.ai/settings/billing', notes: '', color: PALETTE[0] },
-    { id: uuid(), name: 'ChatGPT Plus', cost: 20, currency: 'USD', cycle: 'monthly', category: 'AI / Dev Tools', nextRenewal: futureDate(14), usage: 3, business: true, cancelUrl: '', notes: '', color: PALETTE[1] },
-    { id: uuid(), name: 'Cursor Pro', cost: 20, currency: 'USD', cycle: 'monthly', category: 'AI / Dev Tools', nextRenewal: futureDate(9), usage: 4, business: true, cancelUrl: '', notes: '', color: PALETTE[5] },
-    { id: uuid(), name: 'Spotify', cost: 10.98, currency: 'SGD', cycle: 'monthly', category: 'Music', nextRenewal: futureDate(21), usage: 5, business: false, cancelUrl: 'https://www.spotify.com/account/subscription/', notes: '', color: PALETTE[6] },
-    { id: uuid(), name: 'Apple Music', cost: 11, currency: 'SGD', cycle: 'monthly', category: 'Music', nextRenewal: futureDate(2), usage: 1, business: false, cancelUrl: '', notes: '', color: PALETTE[7] },
-    { id: uuid(), name: 'Netflix', cost: 19.98, currency: 'SGD', cycle: 'monthly', category: 'Entertainment', nextRenewal: futureDate(17), usage: 4, business: false, cancelUrl: 'https://www.netflix.com/cancelplan', notes: '', color: PALETTE[2] },
-    { id: uuid(), name: 'Disney+', cost: 11.98, currency: 'SGD', cycle: 'monthly', category: 'Entertainment', nextRenewal: futureDate(5), usage: 2, business: false, cancelUrl: '', notes: '', color: PALETTE[3] },
-    { id: uuid(), name: 'GitHub Copilot', cost: 10, currency: 'USD', cycle: 'monthly', category: 'AI / Dev Tools', nextRenewal: futureDate(12), usage: 3, business: true, cancelUrl: '', notes: '', color: PALETTE[4] },
-    { id: uuid(), name: 'Vercel Pro', cost: 20, currency: 'USD', cycle: 'monthly', category: 'Cloud / Hosting', nextRenewal: futureDate(8), usage: 3, business: true, cancelUrl: '', notes: '', color: PALETTE[8] },
-    { id: uuid(), name: 'Cloudflare Workers Paid', cost: 5, currency: 'USD', cycle: 'monthly', category: 'Cloud / Hosting', nextRenewal: futureDate(23), usage: 4, business: true, cancelUrl: '', notes: '', color: PALETTE[9] },
-    { id: uuid(), name: 'Notion', cost: 10, currency: 'USD', cycle: 'monthly', category: 'Productivity', nextRenewal: futureDate(1), usage: 2, business: false, cancelUrl: '', notes: '', color: PALETTE[10] },
-    { id: uuid(), name: 'Financial Times', cost: 49, currency: 'USD', cycle: 'monthly', category: 'News / Media', nextRenewal: futureDate(6), usage: 4, business: false, cancelUrl: '', notes: '', color: PALETTE[11] },
-    { id: uuid(), name: 'Adobe Creative Cloud', cost: 659, currency: 'USD', cycle: 'yearly', category: 'Productivity', nextRenewal: futureDate(45), usage: 2, business: true, cancelUrl: '', notes: '', color: PALETTE[0] }
+    { id: uuid(), name: 'Claude Pro', cost: 20, currency: 'USD', cycle: 'monthly', category: 'AI / Dev Tools', nextRenewal: futureDate(3), usage: 5, business: true, subsidyPercent: 100, cancelUrl: 'https://claude.ai/settings/billing', notes: '', color: PALETTE[0] },
+    { id: uuid(), name: 'ChatGPT Plus', cost: 20, currency: 'USD', cycle: 'monthly', category: 'AI / Dev Tools', nextRenewal: futureDate(14), usage: 3, business: true, subsidyPercent: 0, cancelUrl: '', notes: '', color: PALETTE[1] },
+    { id: uuid(), name: 'Cursor Pro', cost: 20, currency: 'USD', cycle: 'monthly', category: 'AI / Dev Tools', nextRenewal: futureDate(9), usage: 4, business: true, subsidyPercent: 100, cancelUrl: '', notes: '', color: PALETTE[5] },
+    { id: uuid(), name: 'Spotify', cost: 10.98, currency: 'SGD', cycle: 'monthly', category: 'Music', nextRenewal: futureDate(21), usage: 5, business: false, subsidyPercent: 0, cancelUrl: 'https://www.spotify.com/account/subscription/', notes: '', color: PALETTE[6] },
+    { id: uuid(), name: 'Apple Music', cost: 11, currency: 'SGD', cycle: 'monthly', category: 'Music', nextRenewal: futureDate(2), usage: 1, business: false, subsidyPercent: 0, cancelUrl: '', notes: '', color: PALETTE[7] },
+    { id: uuid(), name: 'Netflix', cost: 19.98, currency: 'SGD', cycle: 'monthly', category: 'Entertainment', nextRenewal: futureDate(17), usage: 4, business: false, subsidyPercent: 0, cancelUrl: 'https://www.netflix.com/cancelplan', notes: '', color: PALETTE[2] },
+    { id: uuid(), name: 'Disney+', cost: 11.98, currency: 'SGD', cycle: 'monthly', category: 'Entertainment', nextRenewal: futureDate(5), usage: 2, business: false, subsidyPercent: 0, cancelUrl: '', notes: '', color: PALETTE[3] },
+    { id: uuid(), name: 'GitHub Copilot', cost: 10, currency: 'USD', cycle: 'monthly', category: 'AI / Dev Tools', nextRenewal: futureDate(12), usage: 3, business: true, subsidyPercent: 50, cancelUrl: '', notes: '', color: PALETTE[4] },
+    { id: uuid(), name: 'Vercel Pro', cost: 20, currency: 'USD', cycle: 'monthly', category: 'Cloud / Hosting', nextRenewal: futureDate(8), usage: 3, business: true, subsidyPercent: 100, cancelUrl: '', notes: '', color: PALETTE[8] },
+    { id: uuid(), name: 'Cloudflare Workers Paid', cost: 5, currency: 'USD', cycle: 'monthly', category: 'Cloud / Hosting', nextRenewal: futureDate(23), usage: 4, business: true, subsidyPercent: 100, cancelUrl: '', notes: '', color: PALETTE[9] },
+    { id: uuid(), name: 'Notion', cost: 10, currency: 'USD', cycle: 'monthly', category: 'Productivity', nextRenewal: futureDate(1), usage: 2, business: false, subsidyPercent: 0, cancelUrl: '', notes: '', color: PALETTE[10] },
+    { id: uuid(), name: 'Financial Times', cost: 49, currency: 'USD', cycle: 'monthly', category: 'News / Media', nextRenewal: futureDate(6), usage: 4, business: false, subsidyPercent: 0, cancelUrl: '', notes: '', color: PALETTE[11] },
+    { id: uuid(), name: 'Adobe Creative Cloud', cost: 659, currency: 'USD', cycle: 'yearly', category: 'Productivity', nextRenewal: futureDate(45), usage: 2, business: true, subsidyPercent: 0, cancelUrl: '', notes: '', color: PALETTE[0] }
   ];
   save();
   renderAll();
@@ -1873,6 +1953,23 @@ function applyTheme() {
   if (state.settings.theme === 'light') document.body.dataset.theme = 'light';
   else delete document.body.dataset.theme;
   setTimeout(() => { renderCategoryChart(); renderBreakdownChart(); }, 50);
+}
+
+function updateViewModeUI() {
+  const hasSubsidized = state.subs.some(s => (s.subsidyPercent || 0) > 0);
+  const toggle = $('#viewModeToggle');
+  toggle.classList.toggle('hidden', !hasSubsidized);
+  // If no subsidized subs, force back to 'full' so totals make sense
+  if (!hasSubsidized && state.settings.viewMode !== 'full') {
+    state.settings.viewMode = 'full';
+    save();
+  }
+  $$('#viewModeToggle button').forEach(b => b.classList.toggle('active', b.dataset.mode === state.settings.viewMode));
+  // Update topbar subtitle to reflect mode when relevant
+  const sub = $('#viewSub');
+  if (hasSubsidized && state.settings.viewMode === 'oop' && sub.dataset.base) {
+    sub.textContent = sub.dataset.base + ' · Showing out-of-pocket cost';
+  }
 }
 
 /* ─── Boot ─── */
@@ -1932,6 +2029,24 @@ function init() {
     if (e.target.dataset.v) setStars(parseInt(e.target.dataset.v));
   });
   $('#fBusiness').addEventListener('click', () => $('#fBusiness').classList.toggle('on'));
+
+  // Keep subsidy range slider and number input in sync
+  $('#fSubsidyRange').addEventListener('input', e => $('#fSubsidy').value = e.target.value);
+  $('#fSubsidy').addEventListener('input', e => {
+    let v = parseFloat(e.target.value) || 0;
+    v = Math.max(0, Math.min(100, v));
+    $('#fSubsidyRange').value = v;
+  });
+
+  // View mode toggle (Full vs Out-of-pocket)
+  $$('#viewModeToggle button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      state.settings.viewMode = btn.dataset.mode;
+      save();
+      updateViewModeUI();
+      renderAll();
+    });
+  });
 
   // keyboard
   document.addEventListener('keydown', e => {
