@@ -1,65 +1,55 @@
-# subscriptions-tracker — build CLAUDE.md
+# CLAUDE.md — SubscriptionsTracker
 
-Build-specific context only. Global rules (pre-flight, terminology, write safety, behavioral) inherit from `~/.claude/CLAUDE.md`.
+## 1. Build identity
 
-## Header
+SubscriptionsTracker — Personal track. Zero-backend static HTML subscription tracker for Henry; all state in browser `localStorage`.
+SPEC: `gwaiblade/context-brain` → `working/subscriptions-tracker/SPEC_SubscriptionsTracker.md`.
 
-- **Purpose** — Zero-backend personal subscription tracker with a cost-optimization engine. All data lives in the user's browser `localStorage`; nothing leaves the device.
-- **Owner** — Personal.
-- **GitHub repo** — `gwaiblade/subscriptions-tracker` (public).
-- **Local path** — `/Users/mujiri/Library/CloudStorage/Dropbox/+Work/AI Works/subscriptions-tracker`.
+## 2. Local conventions
 
-## Stack
+- No package manager. No dependencies to install.
+- No language version pins. Single `index.html`, runs in any modern browser.
+- No formatter or linter. Match existing style in `index.html`: 2-space indent, single quotes in JS, double quotes for HTML attributes.
+- Dev: `python3 -m http.server 8000` from repo root, or open `index.html` directly in a browser.
+- Test: none. Smoke-test manually in the browser after changes.
+- Build: none.
 
-- Vanilla HTML / CSS / JS in a single `index.html` (~84 KB).
-- No build system. No `package.json`. No bundler. No transpile step.
-- Chart.js **4.4.1** via jsDelivr CDN (donut + bar charts).
-- Google Fonts: Instrument Serif (display), DM Sans (body), JetBrains Mono (numerics).
-- Frankfurter API for FX (ECB rates, no key, no auth).
-- Persistence: `localStorage` keys `ledger:subs:v1`, `ledger:settings:v1`, `ledger:fx:v1`.
+## 3. Deployment guardrails
 
-## Commands
+- Deploy by pushing to `main` only. There is no staging branch.
+- After every push, confirm Pages deploy with `gh run list --workflow=pages-build-deployment --limit 1 --repo gwaiblade/subscriptions-tracker`.
+- CDN cache propagates 1–3 min after build success. Hard-refresh (Cmd+Shift+R) to verify a new version is being served.
+- Do not introduce a build step, bundler, transpiler, or backend. The zero-backend single-file architecture is the product.
+- Do not change GitHub Pages source (currently `main` / `/`).
+- Do not force-push to `main`. Use `git revert` for rollbacks.
 
-- **Install** — none. No dependencies to install.
-- **Run / dev** — open `index.html` directly in a browser, or `python3 -m http.server 8000` from the repo root and visit `http://localhost:8000`.
-- **Test** — no test suite.
-- **Build** — none. The file ships as-is.
-- **Deploy** — `git push` to `main`. GitHub Pages auto-builds from `/` on `main`. Live in ~30–60s; CDN cache another 1–3 min.
+## 4. Repository conventions
 
-## Architecture
+- Trunk-based on `main`. No feature branches in solo mode.
+- Commit messages: imperative one-line summary; bullet body for multi-part changes.
+- Never modify or commit: `.DS_Store`, `.claude/settings.local.json`. Both gitignored.
+- No runtime files are gitignored; the product is self-contained in `index.html`.
+- The seeded sample subscriptions in `init()` (Claude Pro, Spotify, Netflix, etc.) mirror Henry's real subs. Do not "tidy" them.
 
-- **Entry point** — `index.html`. Single file with embedded `<style>` and one `<script>` block (~1050 lines of JS).
-- **State** — module-level `state` object: `{ subs, settings, fx, editId, calCursor, sortKey, sortDir }`. Persisted to `localStorage` on every mutation.
-- **Optimize engine** — a series of rules in `runOptimize()` that produce findings ranked by annual savings (annual-switch, duplicate-category, low-usage, family-plan, free-alternative, sub-$10 creep, business separation). Always uses out-of-pocket cost; 100%-subsidized subs are skipped.
-- **FX** — fetched from Frankfurter on load with USD as base; cached in `localStorage` for 24h; fallback static rates if the API fails.
-- **Charts** — Chart.js instances created/destroyed on tab switch to avoid memory leaks.
+## 5. Known footguns
 
-## External services
+- **localStorage keys are `ledger:*`** (`ledger:subs:v1`, `ledger:settings:v1`, `ledger:fx:v1`), not `subscriptions-tracker:*`. Do not rename — would orphan existing user data.
+- **Brand mismatch is intentional.** Repo and page title say "Subscriptions Tracker"; in-app brand says "Ledger". Both refer to the same product.
+- **Default currency is SGD.** Existing users keep their prior `localStorage` setting; only fresh visitors see SGD.
+- **claude.ai re-uploads overwrite local edits.** When replacing `index.html` with a fresh download from a claude.ai chat, diff first — font swaps, currency defaults, and other local tweaks may be lost.
+- **HTML uses XHTML self-closing tags** (`<meta />`, `<input />`). Naive validators report tag mismatches; ignore.
+- **Dropbox sync lag.** Repo lives under `~/Library/CloudStorage/Dropbox/...`. Phantom `git status` modifications usually mean Dropbox is still syncing.
+- **FX fallback rates are static.** When Frankfurter API fails, hardcoded fallback rates in `index.html` take over. Refresh these annually.
 
-- **GitHub Pages** — hosting.
-- **Frankfurter API** (`api.frankfurter.app`) — FX rates, no key, no auth, ECB-backed.
-- **Google Fonts** — Instrument Serif, DM Sans, JetBrains Mono.
-- **jsDelivr CDN** — Chart.js 4.4.1.
+## 6. Escalate-to-Henry triggers
 
-No backend, no database, no third-party auth.
+Stop and ask before:
 
-## Secrets
-
-None. The app has no API keys, no auth, no env vars. All state is client-side. There is no `.env`.
-
-## Gotchas
-
-- **Single static file is the whole product.** Never introduce a build step, bundler, or backend without explicit approval — zero-backend is the selling point.
-- **Brand mismatch.** Repo name and page title say "Subscriptions Tracker"; the in-app brand and copy still say "Ledger" (the original name). `localStorage` keys are namespaced `ledger:*`. Don't rename the keys — would orphan existing user data.
-- **Currency default.** State default is `SGD`. Users with existing `localStorage` keep their old setting (typically USD); changing the default only affects fresh visitors.
-- **Dropbox sync.** The repo lives under `~/Library/CloudStorage/Dropbox/...`. If `git status` shows phantom modifications or hangs, let Dropbox finish syncing before troubleshooting.
-- **CDN cache after deploy.** Pages serves stale HTML for 1–3 min after a push. Hard-refresh (Cmd+Shift+R) to verify a new version.
-- **HTML validators flag XHTML-style self-closing.** The file uses `<meta ... />` and `<input ... />`. Naive parsers report mismatches; this is cosmetic and intentional.
-- **claude.ai re-uploads can revert local tweaks.** Replacing `index.html` with a fresh download from a claude.ai chat will overwrite any local edits made via Code (e.g. font swaps, size bumps). Re-apply or diff before assuming the upload is a superset.
-
-## Status
-
-- **Live** — https://gwaiblade.github.io/subscriptions-tracker/
-- **Body font** — DM Sans, base 15px, `letter-spacing: 0.01em`, `line-height: 1.55`. All other font sizes bumped ~10% over the upstream baseline.
-- **Last shipped** — Work subsidy field + Full / Out-of-pocket topbar toggle (commit `7c83e45`).
-- **Discussed, not built** — GitHub Actions scraper for Singapore service pricing → `sg-pricing.json` consumed by the Optimize engine. Would add freshness without breaking zero-backend at runtime.
+- Adding any external dependency (CDN script, font, API beyond Frankfurter).
+- Introducing a build step, bundler, or backend.
+- Renaming `localStorage` keys or changing the storage schema.
+- Changing the GitHub Pages source branch or build mode.
+- Force-pushing to `main`.
+- Modifying the seeded sample subscriptions in `init()`.
+- Any `rm -rf` outside obvious build outputs (there are none here, so effectively any `rm -rf`).
+- Spec'ing the build under a newer canon version than v1.2.
