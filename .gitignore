@@ -1,2 +1,4 @@
 .DS_Store
 node_modules/
+# local-only symlink to context-brain canon; dangles in build envs (canon step 7)
+SECURITY_GUIDANCE.md
