@@ -1,9 +1,10 @@
-# CLAUDE.md — SubscriptionsTracker
+# CLAUDE.md — subscriptions-tracker
 
 ## 1. Build identity
 
-SubscriptionsTracker — Personal track. Zero-backend static HTML subscription tracker for Henry; all state in browser `localStorage`.
-SPEC: `gwaiblade/context-brain` → `working/subscriptions-tracker/SPEC_SubscriptionsTracker.md`.
+- **SubscriptionsTracker.** Personal track. Zero-backend static HTML subscription tracker for Henry; all state in browser `localStorage`.
+- Repo: `gwaiblade/subscriptions-tracker` (**public**), local `/Users/mujiri/Code/subscriptions-tracker`.
+- SPEC: `/Users/mujiri/Code/context-brain/working/subscriptions-tracker/SPEC_SubscriptionsTracker.md`.
 
 ## 2. Local conventions
 
@@ -33,13 +34,12 @@ SPEC: `gwaiblade/context-brain` → `working/subscriptions-tracker/SPEC_Subscrip
 
 ## 5. Known footguns
 
-- **localStorage keys are `ledger:*`** (`ledger:subs:v1`, `ledger:settings:v1`, `ledger:fx:v1`), not `subscriptions-tracker:*`. Do not rename — would orphan existing user data.
-- **Brand mismatch is intentional.** Repo and page title say "Subscriptions Tracker"; in-app brand says "Ledger". Both refer to the same product.
-- **Default currency is SGD.** Existing users keep their prior `localStorage` setting; only fresh visitors see SGD.
-- **claude.ai re-uploads overwrite local edits.** When replacing `index.html` with a fresh download from a claude.ai chat, diff first — font swaps, currency defaults, and other local tweaks may be lost.
-- **HTML uses XHTML self-closing tags** (`<meta />`, `<input />`). Naive validators report tag mismatches; ignore.
-- **Dropbox sync lag.** Repo lives under `~/Library/CloudStorage/Dropbox/...`. Phantom `git status` modifications usually mean Dropbox is still syncing.
-- **FX fallback rates are static.** When Frankfurter API fails, hardcoded fallback rates in `index.html` take over. Refresh these annually.
+1. **localStorage keys are `ledger:*`** (`ledger:subs:v1`, `ledger:settings:v1`, `ledger:fx:v1`), not `subscriptions-tracker:*`. Do not rename — would orphan existing user data.
+2. **Brand mismatch is intentional.** Repo and page title say "Subscriptions Tracker"; in-app brand says "Ledger". Both refer to the same product.
+3. **Default currency is SGD.** Existing users keep their prior `localStorage` setting; only fresh visitors see SGD.
+4. **claude.ai re-uploads overwrite local edits.** When replacing `index.html` with a fresh download from a claude.ai chat, diff first — font swaps, currency defaults, and other local tweaks may be lost.
+5. **HTML uses XHTML self-closing tags** (`<meta />`, `<input />`). Naive validators report tag mismatches; ignore.
+6. **FX fallback rates are static.** When Frankfurter API fails, hardcoded fallback rates in `index.html` take over. Refresh these annually.
 
 ## 6. Escalate-to-Henry triggers
 
@@ -52,4 +52,3 @@ Stop and ask before:
 - Force-pushing to `main`.
 - Modifying the seeded sample subscriptions in `init()`.
 - Any `rm -rf` outside obvious build outputs (there are none here, so effectively any `rm -rf`).
-- Spec'ing the build under a newer canon version than v1.2.
